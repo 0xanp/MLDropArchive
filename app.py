@@ -7,12 +7,12 @@ import os
 
 
 # ---- LOAD ALL DATA PATHS ----
-directory = os.fsencode("../data")
+directory = os.fsencode("data")
 paths= {}
 for file in os.listdir(directory):
     filename = os.fsdecode(file)
     if filename.endswith(".xlsx"):
-        paths[filename.replace('.xlsx','')] = "../data/"+filename
+        paths[filename.replace('.xlsx','')] = "data/"+filename
         continue
     else:
         continue
