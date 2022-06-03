@@ -27,17 +27,16 @@ def make_clickable(link):
 # ---- TABLE STYLING ----
 def coloring(s):
     color = 'green' if  s == 'green' else 'yellow' if s == 'yellow' else 'orange'
-    return f'background-color: {color}'
+    return f'color: {color}'
 
 # ---- READ EXCEL ----
 @st.cache
 def load_data(path,calendar_tag):
-    excel_file = path
-    sheet_name = 'Sheet1' 
+    excel_file = path 
     wb = load_workbook(excel_file, data_only = True)
-    sh = wb[sheet_name]
+    sh = wb[wb.sheetnames[0]]
     df = pd.read_excel(excel_file,
-                    sheet_name=sheet_name,
+                    sheet_name=wb.sheetnames[0],
                     usecols='A:D',skiprows=[1])
     
     df = df[df['Comments'].notnull()]
@@ -101,4 +100,14 @@ cycle = st.sidebar.multiselect(
 df_selection = df.query(
     "Color == @color & Cycle == @cycle"
 )
-st.write(df_selection[['Color','Project','Twitter','Comments','Mint Date']].style.applymap(coloring, subset=['Color']).hide().to_html(escape=False, index=False), unsafe_allow_html=True)
+
+# ---- Hiding default wartermark ----
+hide_menu_style = """
+        <style>
+        #MainMenu {visibility: hidden; }
+        footer {visibility: hidden;}
+        </style>
+        """
+st.markdown(hide_menu_style, unsafe_allow_html=True)
+
+st.write(df_selection[['Color','Project','Twitter','Comments','Mint Date']].sort_values(by=['Color']).style.applymap(coloring, subset=['Color']).hide().to_html(escape=False, index=False), unsafe_allow_html=True)
