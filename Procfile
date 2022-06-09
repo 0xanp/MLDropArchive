@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit run app.py
+web: sh setup.sh && streamlit run ''$'\360\237\223\206''_Curated_Picks.py'
