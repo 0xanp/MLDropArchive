@@ -44,7 +44,7 @@ def load_data(path,calendar_tag):
     cycle = []
     for i in df.index:
         hex = sh['A'+str(i+3)].fill.start_color.index # this gives you Hexadecimal value of the color
-        cycle.append(calendar_tag)
+        cycle.append(calendar_tag.split()[-1])
         if hex == 'FF00FF00':
             color.append('green')
         elif hex == 'FFFFFF00':
@@ -87,14 +87,14 @@ for name in paths.keys():
 
 # ---- SIDE BAR ----
 color = st.sidebar.multiselect(
-    "Filter the color:",
+    "Color:",
     options=df["Color"].unique(),
     default=df["Color"].unique()
 )
 cycle = st.sidebar.multiselect(
-    "Select the cycle:",
+    "Cycle:",
     options=df["Cycle"].unique(),
-    default=df["Cycle"].unique()
+    default=df["Cycle"].unique()[-1]
 )
 
 df_selection = df.query(
@@ -109,5 +109,5 @@ hide_menu_style = """
         </style>
         """
 st.markdown(hide_menu_style, unsafe_allow_html=True)
-
-st.write(df_selection[['Color','Project','Twitter','Comments','Mint Date']].sort_values(by=['Color']).style.applymap(coloring, subset=['Color']).hide().to_html(escape=False, index=False), unsafe_allow_html=True)
+with st.container():
+    st.write(df_selection[['Color','Project','Twitter','Comments','Mint Date']].sort_values(by=['Color']).style.applymap(coloring, subset=['Color']).hide().to_html(escape=False, index=False), unsafe_allow_html=True)
