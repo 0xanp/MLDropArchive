@@ -10,6 +10,8 @@ requests = "*"
 numpy = "*"
 openpyxl = "*"
 urlextract = "*"
+importlib-resources = "*"
+tweepy = "*"
 
 [dev-packages]
 
