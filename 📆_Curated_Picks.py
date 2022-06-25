@@ -94,14 +94,14 @@ color = st.sidebar.multiselect(
 cycle = st.sidebar.multiselect(
     "Cycle:",
     options=df["Cycle"].unique(),
-    default=df["Cycle"].unique()[-1]
+    default=df["Cycle"].unique()
 )
 
 df_selection = df.query(
     "Color == @color & Cycle == @cycle"
 )
 
-# ---- Hiding default wartermark ----
+# ---- HIDING DEFAUT WATERMARK ----
 hide_menu_style = """
         <style>
         #MainMenu {visibility: hidden; }
@@ -109,5 +109,7 @@ hide_menu_style = """
         </style>
         """
 st.markdown(hide_menu_style, unsafe_allow_html=True)
+
+# ---- DISPLAYING THE TABLE ----
 with st.container():
     st.write(df_selection[['Color','Project','Twitter','Comments','Mint Date']].sort_values(by=['Color']).style.applymap(coloring, subset=['Color']).hide().to_html(escape=False, index=False), unsafe_allow_html=True)
