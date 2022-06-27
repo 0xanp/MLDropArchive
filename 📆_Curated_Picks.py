@@ -5,7 +5,6 @@ from openpyxl import load_workbook
 import pathlib
 import os
 
-
 # ---- LOAD ALL DATA PATHS ----
 directory = os.fsencode("data")
 paths= {}
