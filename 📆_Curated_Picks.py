@@ -4,6 +4,7 @@ import numpy as np
 from openpyxl import load_workbook
 import pathlib
 import os
+import data_processor as dp
 
 # ---- LOAD ALL DATA PATHS ----
 directory = os.fsencode("data")
@@ -78,26 +79,33 @@ st.markdown("""
 
 
 # ---- LOAD ALL DATA ----
-df = pd.DataFrame()
-for name in paths.keys():
-    df1 = load_data(paths[name],name)
-    df = pd.concat([df, df1], ignore_index=True)
-    df.index = np.arange(1, len(df)+1)
+
+#df = pd.DataFrame()
+#for name in paths.keys():
+#    df1 = load_data(paths[name],name)
+#    df = pd.concat([df, df1], ignore_index=True)
+#    df.index = np.arange(1, len(df)+1)
+df = dp.load_data()
 
 # ---- SIDE BAR ----
-color = st.sidebar.multiselect(
-    "Color:",
-    options=df["Color"].unique(),
-    default=df["Color"].unique()
+JY_score = st.sidebar.multiselect(
+    "JY Score:",
+    options=df["JY Score"].unique(),
+    default=df["JY Score"].unique()
 )
-cycle = st.sidebar.multiselect(
-    "Cycle:",
-    options=df["Cycle"].unique(),
-    default=df["Cycle"].unique()
+pix_score = st.sidebar.multiselect(
+    "Guillermo Score:",
+    options=df["Guillermo Score"].unique(),
+    default=df["Guillermo Score"].unique()
 )
+#cycle = st.sidebar.multiselect(
+#    "Cycle:",
+#    options=df["Cycle"].unique(),
+#    default=df["Cycle"].unique()
+#)
 
 df_selection = df.query(
-    "Color == @color & Cycle == @cycle"
+    "`JY Score` == @JY_score & `Guillermo Score` == @pix_score"
 )
 
 # ---- HIDING DEFAUT WATERMARK ----
@@ -111,4 +119,5 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # ---- DISPLAYING THE TABLE ----
 with st.container():
-    st.write(df_selection[['Color','Project','Twitter','Comments','Mint Date']].sort_values(by=['Color']).style.applymap(coloring, subset=['Color']).hide().to_html(escape=False, index=False), unsafe_allow_html=True)
+    #st.write(df_selection[['Color','Project','Twitter','Comments','Mint Date']].sort_values(by=['Color']).style.applymap(coloring, subset=['Color']).hide().to_html(escape=False, index=False), unsafe_allow_html=True)
+    st.write(df.to_html(escape=False, index=False), unsafe_allow_html=True)
