@@ -7,9 +7,9 @@ import os
 import data_processor as dp
 
 # ---- LOAD DATA ----
-#@st.cache
-#def load_data():
-#    return dp.load_data()
+@st.experimental_memo
+def load_data():
+    return dp.load_data()
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title='ML Drop Calendar Archive',page_icon=":waxing_crescent_moon:", layout="wide")
 
@@ -31,7 +31,7 @@ st.markdown("""
 
 
 # ---- LOAD ALL DATA ----
-df = dp.load_data() #load_data()
+df = load_data()
 
 # ---- SIDE BAR ----
 cycle = st.sidebar.multiselect(
@@ -52,6 +52,11 @@ if minted:
     query = ""
 else:
     query = "& `Mint Date` != 'Already Minted'"
+
+clear_cache = st.sidebar.button('↻ Refresh')
+
+if clear_cache:
+    st.experimental_memo.clear()
 
 df = df.query("Cycle == @cycle & Status == @status" + query).sort_values(by=['status_num'])[["Project","Twitter","Description","Mint Date","Cycle"]]
 
