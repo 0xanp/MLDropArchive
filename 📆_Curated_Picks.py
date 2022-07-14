@@ -19,13 +19,13 @@ st.title('Midnightlabs Drop Calendar Archive')
 st.write(":waxing_crescent_moon: :first_quarter_moon: :waxing_gibbous_moon: :waxing_gibbous_moon: :full_moon: :waning_gibbous_moon: :last_quarter_moon: :waning_crescent_moon:")
 st.markdown("""
     <p>
-    <strong> Description: </strong> Projects highlighted in
-    <span style="color: #32CD32">green</span>
-    were found to have strong fundumentals and potential to be mid-to-long term holds. Projects in
-    <span style="color: #FFFF00">yellow</span> 
-    are on our watchlist and will continue to be monitored as they develop. Projects highlighted in
-    <span style="color: #FF4500">orange</span> 
-    show signs of potential but lack important information needed to make a final call.
+    Projects highlighted in
+    <strong> <span style="color: #32CD32">green </span> </strong>
+    were found to have strong fundumentals and potential to be mid-to-long term holds. <br> Projects in
+    <strong> <span style="color: #FFFF00">yellow</span> </strong>
+    are on our watchlist and will continue to be monitored as they develop. <br> Projects highlighted in
+    <strong> <span style="color: #FF4500">orange</span> </strong>
+    show signs of potential but lack important information needed to make a final call. <br> Everthing else is in <strong> white</strong>.
     </p>
 """,unsafe_allow_html=True)
 
