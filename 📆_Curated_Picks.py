@@ -37,7 +37,7 @@ df = load_data()
 cycle = st.sidebar.multiselect(
     "Cycle:",
     options=df["Cycle"].unique()[::-1],
-    default=df["Cycle"].unique()
+    default=df["Cycle"].unique()[-1]
 )
 
 status = st.sidebar.multiselect(
