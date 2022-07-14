@@ -6,58 +6,10 @@ import pathlib
 import os
 import data_processor as dp
 
-# ---- LOAD ALL DATA PATHS ----
-directory = os.fsencode("data")
-paths= {}
-for file in os.listdir(directory):
-    filename = os.fsdecode(file)
-    if filename.endswith(".xlsx"):
-        paths[filename.replace('.xlsx','')] = "data/"+filename
-        continue
-    else:
-        continue
-
-# ---- HYPERLINK ----
-def make_clickable(link):
-    # target _blank to open new window
-    # extract clickable text to display for your link
-    text = link.split('=')[0]
-    return f'<a target="_blank" href="{link}">{text}</a>'
-
-# ---- TABLE STYLING ----
-def coloring(s):
-    color = 'green' if  s == 'green' else 'yellow' if s == 'yellow' else 'orange'
-    return f'color: {color}'
-
-# ---- READ EXCEL ----
+# ---- LOAD DATA ----
 @st.cache
-def load_data(path,calendar_tag):
-    excel_file = path 
-    wb = load_workbook(excel_file, data_only = True)
-    sh = wb[wb.sheetnames[0]]
-    df = pd.read_excel(excel_file,
-                    sheet_name=wb.sheetnames[0],
-                    usecols='A:D',skiprows=[1])
-    
-    df = df[df['Comments'].notnull()]
-    color = []
-    cycle = []
-    for i in df.index:
-        hex = sh['A'+str(i+3)].fill.start_color.index # this gives you Hexadecimal value of the color
-        cycle.append(calendar_tag.split()[-1])
-        if hex == 'FF00FF00':
-            color.append('green')
-        elif hex == 'FFFFFF00':
-            color.append('yellow')
-        elif hex == 'FFFF9900':
-            color.append('orange')
-    df['Twitter'] = df['Twitter'].apply(make_clickable)
-    df['Color'] = color
-    df['Cycle'] = cycle
-    df['Comments'] = df['Comments'].str.replace("\n\n","").str.replace("\n \n","")
-    df['Mint Date'] = df['Mint Date'].astype(str)
-    return df
-
+def load_data():
+    return dp.load_data()
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title='ML Drop Calendar Archive',page_icon=":waxing_crescent_moon:", layout="wide")
 
@@ -79,34 +31,30 @@ st.markdown("""
 
 
 # ---- LOAD ALL DATA ----
-
-#df = pd.DataFrame()
-#for name in paths.keys():
-#    df1 = load_data(paths[name],name)
-#    df = pd.concat([df, df1], ignore_index=True)
-#    df.index = np.arange(1, len(df)+1)
-df = dp.load_data()
+df = load_data()
 
 # ---- SIDE BAR ----
-JY_score = st.sidebar.multiselect(
-    "JY Score:",
-    options=df["JY Score"].unique(),
-    default=df["JY Score"].unique()
+cycle = st.sidebar.multiselect(
+    "Cycle:",
+    options=df["Cycle"].unique()[::-1],
+    default=df["Cycle"].unique()[-1]
 )
-pix_score = st.sidebar.multiselect(
-    "Guillermo Score:",
-    options=df["Guillermo Score"].unique(),
-    default=df["Guillermo Score"].unique()
-)
-#cycle = st.sidebar.multiselect(
-#    "Cycle:",
-#    options=df["Cycle"].unique(),
-#    default=df["Cycle"].unique()
-#)
 
-df_selection = df.query(
-    "`JY Score` == @JY_score & `Guillermo Score` == @pix_score"
+status = st.sidebar.multiselect(
+    "Status:",
+    options=["Green", "Yellow", "Orange","Not Good Enough","Other","Non Ethereum"],
+    default=["Green", "Yellow", "Orange"]
 )
+
+minted = st.sidebar.checkbox("Already Minted")
+
+if minted:
+    query = ""
+else:
+    query = "& `Mint Date` != 'Already Minted'"
+
+df = df.query("Cycle == @cycle & Status == @status" + query).sort_values(by=['status_num'])[["Project","Twitter","Description","Mint Date","Cycle"]]
+
 
 # ---- HIDING DEFAUT WATERMARK ----
 hide_menu_style = """
@@ -119,5 +67,5 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # ---- DISPLAYING THE TABLE ----
 with st.container():
-    #st.write(df_selection[['Color','Project','Twitter','Comments','Mint Date']].sort_values(by=['Color']).style.applymap(coloring, subset=['Color']).hide().to_html(escape=False, index=False), unsafe_allow_html=True)
+    #st.write(df[['Status','Project','Twitter','Description','Mint Date','Cycle']].sort_values(by=['Status']).style.applymap(coloring, subset=['Status']).hide().to_html(escape=False, index=False), unsafe_allow_html=True)
     st.write(df.to_html(escape=False, index=False), unsafe_allow_html=True)
