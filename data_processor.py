@@ -1,11 +1,12 @@
 import pandas as pd
 from datetime import datetime
+import re
 # ---- HYPERLINK ----
 def make_clickable(link):
     # target _blank to open new window
     # extract clickable text to display for your link
-    text = link.split('=')[0]
-    return f'<a target="_blank" href="{link}">{text}</a>'
+    #text = link.split('=')[0]
+    return f'<a target="_blank" href="{link}">{link}</a>'
 
 def custom_sort(df):
     df_mapping = pd.DataFrame({
@@ -14,6 +15,15 @@ def custom_sort(df):
     sort_mapping = df_mapping.reset_index().set_index('status')
     df['status_num'] = df['Status'].map(sort_mapping['index'])
     return df
+
+def format_desc(text):
+    regex = r'\b(?:https?|telnet|gopher|file|wais|ftp):[\w/#~:.?+=&%@!\-.:?\\-]+?(?=[.:?\-]*(?:[^\w/#~:.?+=&%@!\-.:?\-]|$))'
+    links = re.findall(regex, text)
+    for link in links:
+        text = text.replace(link, make_clickable(link))
+    return text
+
+    
 
 # ---- READ EXCEL ----
 def load_data():
@@ -34,6 +44,10 @@ def load_data():
     df = custom_sort(df)
     df.rename(columns = {'Date Last Reviewed':'Cycle'}, inplace = True)
     df["Mint Date"] = df['Mint Date'].apply(lambda x: pd.to_datetime(x).strftime('%m/%d/%Y') if type(x) is datetime else x)
+    df["Project"] = df["Project"].apply(lambda x: x.replace("\n\n","<br> <br>"))
+    df["Description"] = df["Description"].astype(str).apply(lambda x: x.replace("\n\n","<br> <br>"))
+    df["Description"] = df["Description"].astype(str).apply(lambda x: x.replace("\n \n","<br> <br>"))
+    df["Description"] = df["Description"].astype(str).apply(format_desc)
     pd.set_option('display.colheader_justify', 'left')
     return df.fillna(' ')
 

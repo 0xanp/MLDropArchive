@@ -37,7 +37,7 @@ df = load_data()
 cycle = st.sidebar.multiselect(
     "Cycle:",
     options=df["Cycle"].unique()[::-1],
-    default=df["Cycle"].unique()[-1]
+    default=df["Cycle"].unique()
 )
 
 status = st.sidebar.multiselect(
@@ -67,5 +67,4 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # ---- DISPLAYING THE TABLE ----
 with st.container():
-    #st.write(df[['Status','Project','Twitter','Description','Mint Date','Cycle']].sort_values(by=['Status']).style.applymap(coloring, subset=['Status']).hide().to_html(escape=False, index=False), unsafe_allow_html=True)
     st.write(df.to_html(escape=False, index=False), unsafe_allow_html=True)
