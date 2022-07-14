@@ -44,7 +44,6 @@ def load_data():
     df = custom_sort(df)
     df.rename(columns = {'Date Last Reviewed':'Cycle'}, inplace = True)
     df["Mint Date"] = df['Mint Date'].apply(lambda x: pd.to_datetime(x).strftime('%m/%d/%Y') if type(x) is datetime else x)
-    df["Project"] = df["Project"].apply(lambda x: x.replace("\n\n","<br> <br>"))
     df["Description"] = df["Description"].astype(str).apply(lambda x: x.replace("\n\n","<br> <br>"))
     df["Description"] = df["Description"].astype(str).apply(lambda x: x.replace("\n \n","<br> <br>"))
     df["Description"] = df["Description"].astype(str).apply(format_desc)
