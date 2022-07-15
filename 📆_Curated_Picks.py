@@ -40,6 +40,9 @@ cycle = st.sidebar.multiselect(
     default=df["Cycle"].unique()[-1]
 )
 
+all_cycle = st.sidebar.checkbox("All Cycle")
+all = df["Cycle"].unique()
+
 status = st.sidebar.multiselect(
     "Status:",
     options=["Green", "Yellow", "Orange","Not Good Enough","Other","Non Ethereum"],
@@ -49,17 +52,21 @@ status = st.sidebar.multiselect(
 minted = st.sidebar.checkbox("Already Minted")
 
 if minted:
-    query = ""
+    mint_date_query = ""
 else:
-    query = "& `Mint Date` != 'Already Minted'"
+    mint_date_query = "& `Mint Date` != 'Already Minted'"
 
 clear_cache = st.sidebar.button('↻ Refresh')
 
 if clear_cache:
     st.experimental_memo.clear()
 
-df = df.query("Cycle == @cycle & Status == @status" + query).sort_values(by=['status_num'])[["Project","Twitter","Description","Mint Date","Cycle"]]
+if all_cycle:
+    cycle_query = "Cycle in @all"
+else:
+    cycle_query = "Cycle == @cycle"
 
+df = df.query(cycle_query + "& Status == @status" + mint_date_query).sort_values(by=['status_num','Cycle'])[["Project","Twitter","Description","Mint Date","Cycle"]]
 
 # ---- HIDING DEFAUT WATERMARK ----
 hide_menu_style = """

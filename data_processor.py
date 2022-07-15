@@ -10,7 +10,7 @@ def make_clickable(link):
 
 def custom_sort(df):
     df_mapping = pd.DataFrame({
-    'status': ['Green', 'Orange', 'Yellow', 'Not Good Enough','Other','Re-Review Needed','Non Ethereum'],
+    'status': ['Green', 'Yellow', 'Orange', 'Not Good Enough','Other','Re-Review Needed','Non Ethereum'],
     })
     sort_mapping = df_mapping.reset_index().set_index('status')
     df['status_num'] = df['Status'].map(sort_mapping['index'])
@@ -31,7 +31,7 @@ def load_data():
     gid = "1619771889"
     url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=xlsx&gid={gid}"
     df = pd.read_excel(url)
-    df = df[['Project','Mint Date','Twitter','Status','Description','Date Last Reviewed']]
+    df = df[['Project','Mint Date','Twitter','Status','Description','Date Last Reviewed','Picture Test']]
     df['Twitter'] = df['Twitter'].apply(make_clickable)
     df['Date Last Reviewed'] = df['Date Last Reviewed'].dt.strftime('%m/%d/%Y')
     df = df[df['Date Last Reviewed'].notna()]
@@ -51,4 +51,4 @@ def load_data():
     return df.fillna(' ')
 
 #df = load_data()
-#print(df)
+#print(df[df['Project']=="<a style='color:yellow;'>wagmiunited</a>"]['Picture Test'].astype(str))
