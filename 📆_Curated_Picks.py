@@ -25,7 +25,9 @@ st.markdown("""
     <strong> <span style="color: #FFFF00">yellow</span> </strong>
     are on our watchlist and will continue to be monitored as they develop. <br> Projects highlighted in
     <strong> <span style="color: #FF4500">orange</span> </strong>
-    show signs of potential but lack important information needed to make a final call. <br> Everthing else is in <strong> white</strong>.
+    show signs of potential but lack important information needed to make a final call. 
+    <br> Projects in <strong> <span style="color:#add8e6">blue</span> </strong> were reviewed but were not added to the calendar. 
+    <br> Everthing else is in <strong> white</strong>.
     </p>
 """,unsafe_allow_html=True)
 
@@ -45,7 +47,7 @@ all = df["Cycle"].unique()
 
 status = st.sidebar.multiselect(
     "Status:",
-    options=["Green", "Yellow", "Orange","Not Good Enough","Other","Non Ethereum"],
+    options=["Green", "Yellow", "Orange", "Blue","Other","Non Ethereum"],
     default=["Green", "Yellow", "Orange"]
 )
 
