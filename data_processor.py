@@ -11,7 +11,7 @@ def make_clickable(link):
 
 def custom_sort(df):
     df_mapping = pd.DataFrame({
-    'status': ['Green', 'Yellow', 'Orange', 'Blue','Other','Re-Review Needed','Non Ethereum'],
+    'status': ['Green', 'Yellow', 'Orange', 'Blue'],
     })
     sort_mapping = df_mapping.reset_index().set_index('status')
     df['status_num'] = df['Status'].map(sort_mapping['index'])
