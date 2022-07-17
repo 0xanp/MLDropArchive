@@ -2,6 +2,7 @@ import pandas as pd
 from datetime import datetime
 import re
 import numpy as np
+
 # ---- HYPERLINK ----
 def make_clickable(link):
     # target _blank to open new window
@@ -57,4 +58,3 @@ def load_data():
 
 #df = load_data()
 #print(df[df['Project']=="<a style='color:yellow;'>wagmiunited</a>"]['Picture Test'].astype(str))
-#print(df[df['Project']=="<a style='color:#add8e6;'>Wakey-wakey</a>"]['Description'])

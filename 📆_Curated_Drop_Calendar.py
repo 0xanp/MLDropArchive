@@ -10,6 +10,7 @@ import data_processor as dp
 @st.experimental_memo
 def load_data():
     return dp.load_data()
+
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title='ML Curated Drop Calendar',page_icon=":waxing_crescent_moon:", layout="wide")
 
@@ -29,7 +30,6 @@ st.markdown("""
     <br> Projects in <strong> <span style="color:#add8e6">light blue</span> </strong> were reviewed but were not added to the curated calendar. 
     </p>
 """,unsafe_allow_html=True)
-
 
 # ---- LOAD ALL DATA ----
 df = load_data()
