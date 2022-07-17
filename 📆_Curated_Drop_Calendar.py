@@ -80,4 +80,4 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # ---- DISPLAYING THE TABLE ----
 with st.container():
-    st.write(df.to_html(escape=False, index=False), unsafe_allow_html=True)
+    st.write(df.to_html(escape=False), unsafe_allow_html=True)

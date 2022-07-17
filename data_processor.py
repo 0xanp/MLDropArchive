@@ -18,6 +18,12 @@ def custom_sort(df):
     df['status_num'] = df['Status'].map(sort_mapping['index'])
     return df
 
+def format_images(link):
+    if link != 'nan':
+        return f'<img src={link} width="60" >'
+    else:
+        return ""
+
 def format_desc(text):
     regex = r'\b(?:https?|telnet|gopher|file|wais|ftp):[\w/#~:.?+=&%@!\-.:?\\-]+?(?=[.:?\-]*(?:[^\w/#~:.?+=&%@!\-.:?\-]|$))'
     links = re.findall(regex, text)
@@ -48,13 +54,19 @@ def load_data():
     df.loc[df["Status"] == "Blue",'Project'] = "<a style='color:#add8e6;'>" + df.loc[df["Status"] == "Blue",'Project'] + "</a>"
     df = custom_sort(df)
     df.rename(columns = {'Date Last Reviewed':'Cycle'}, inplace = True)
+    df.rename(columns = {'Picture Test':'Picture'}, inplace = True)
+    df["Picture"] = df["Picture"].astype(str).apply(format_images)
     df["Mint Date"] = df['Mint Date'].apply(lambda x: pd.to_datetime(x).strftime('%m/%d/%Y') if type(x) is datetime else x)
     df["Description"] = df["Description"].astype(str).apply(fill_nan)
     df["Description"] = df["Description"].astype(str).apply(lambda x: x.replace("\n\n","<br> <br>"))
     df["Description"] = df["Description"].astype(str).apply(lambda x: x.replace("\n \n","<br> <br>"))
     df["Description"] = df["Description"].astype(str).apply(format_desc)
     pd.set_option('display.colheader_justify', 'left')
-    return df.fillna(" ")
+    df = df.fillna(" ")
+    df = df.set_index("Picture", drop=True)
+    df.index.name = None
+    #df = df.rename_axis(index=None, columns=None)
+    return df
 
 #df = load_data()
-#print(df[df['Project']=="<a style='color:yellow;'>wagmiunited</a>"]['Picture Test'].astype(str))
+#print(df)
