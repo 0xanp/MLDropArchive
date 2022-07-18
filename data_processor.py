@@ -65,8 +65,4 @@ def load_data():
     df = df.fillna(" ")
     df = df.set_index("Picture", drop=True)
     df.index.name = None
-    #df = df.rename_axis(index=None, columns=None)
     return df
-
-#df = load_data()
-#print(df)
