@@ -20,7 +20,7 @@ def custom_sort(df):
 
 def format_images(link):
     if link != 'nan':
-        return f'<img src={link} width="60" >'
+        return f'<img src={link} width="40">'
     else:
         return ""
 

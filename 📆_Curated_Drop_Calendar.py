@@ -12,24 +12,31 @@ def load_data():
     return dp.load_data()
 
 # ---- PAGE CONFIG ----
-st.set_page_config(page_title='ML Curated Drop Calendar',page_icon=":waxing_crescent_moon:", layout="wide")
+st.set_page_config(
+     page_title="ML Curated Drop Calendar",
+     page_icon=":waxing_crescent_moon:",
+     layout="wide",
+     initial_sidebar_state="collapsed",
+ )
 
 # ---- HEADER ----
 st.write(":waxing_crescent_moon: :first_quarter_moon: :waxing_gibbous_moon: :waxing_gibbous_moon: :full_moon: :waning_gibbous_moon: :last_quarter_moon: :waning_crescent_moon:")
 st.title('Midnightlabs Curated Drop Calendar')
 st.write(":waxing_crescent_moon: :first_quarter_moon: :waxing_gibbous_moon: :waxing_gibbous_moon: :full_moon: :waning_gibbous_moon: :last_quarter_moon: :waning_crescent_moon:")
-st.markdown("""
-    <p>
-    Projects highlighted in
-    <strong> <span style="color: #32CD32">green </span> </strong>
-    were found to have strong fundumentals and potential to be mid-to-long term holds. <br> Projects in
-    <strong> <span style="color: #FFFF00">yellow</span> </strong>
-    are on our watchlist and will continue to be monitored as they develop. <br> Projects highlighted in
-    <strong> <span style="color: #FF4500">orange</span> </strong>
-    show signs of potential but lack important information needed to make a final call. 
-    <br> Projects in <strong> <span style="color:#add8e6">light blue</span> </strong> were reviewed but were not added to the curated calendar. 
-    </p>
-""",unsafe_allow_html=True)
+
+with st.expander("Description"):
+    st.markdown("""
+        <p>
+        Projects highlighted in
+        <strong> <span style="color: #32CD32">green </span> </strong>
+        were found to have strong fundumentals and potential to be mid-to-long term holds. <br> Projects in
+        <strong> <span style="color: #FFFF00">yellow</span> </strong>
+        are on our watchlist and will continue to be monitored as they develop. <br> Projects highlighted in
+        <strong> <span style="color: #FF4500">orange</span> </strong>
+        show signs of potential but lack important information needed to make a final call. 
+        <br> Projects in <strong> <span style="color:#add8e6">light blue</span> </strong> were reviewed but were not added to the curated calendar. 
+        </p>
+    """,unsafe_allow_html=True)
 
 # ---- LOAD ALL DATA ----
 df = load_data()

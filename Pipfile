@@ -11,6 +11,7 @@ numpy = "*"
 openpyxl = "*"
 urlextract = "*"
 importlib-resources = "*"
+streamlit-on-hover-tabs = "*"
 
 [dev-packages]
 
