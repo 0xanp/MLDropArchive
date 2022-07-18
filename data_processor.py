@@ -12,7 +12,7 @@ def make_clickable(link):
 
 def custom_sort(df):
     df_mapping = pd.DataFrame({
-    'status': ['Green', 'Yellow', 'Orange', 'Blue'],
+    'status': ['Green', 'Yellow', 'Orange'],
     })
     sort_mapping = df_mapping.reset_index().set_index('status')
     df['status_num'] = df['Status'].map(sort_mapping['index'])
@@ -20,7 +20,7 @@ def custom_sort(df):
 
 def format_images(link):
     if link != 'nan':
-        return f'<img src={link} width="40">'
+        return f'<img src={link} width="80">'
     else:
         return ""
 
@@ -51,7 +51,6 @@ def load_data():
     df.loc[df["Status"] == "Green",'Project'] = "<a style='color:green;'>" + df.loc[df["Status"] == "Green",'Project'] + "</a>"
     df.loc[df["Status"] == "Orange",'Project'] = "<a style='color:orange;'>" + df.loc[df["Status"] == "Orange",'Project'] + "</a>"
     df.loc[df["Status"] == "Yellow",'Project'] = "<a style='color:yellow;'>" + df.loc[df["Status"] == "Yellow",'Project'] + "</a>"
-    df.loc[df["Status"] == "Blue",'Project'] = "<a style='color:#add8e6;'>" + df.loc[df["Status"] == "Blue",'Project'] + "</a>"
     df = custom_sort(df)
     df.rename(columns = {'Date Last Reviewed':'Cycle'}, inplace = True)
     df.rename(columns = {'Picture Test':'Picture'}, inplace = True)

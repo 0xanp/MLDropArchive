@@ -20,9 +20,10 @@ st.set_page_config(
  )
 
 # ---- HEADER ----
-st.write(":waxing_crescent_moon: :first_quarter_moon: :waxing_gibbous_moon: :waxing_gibbous_moon: :full_moon: :waning_gibbous_moon: :last_quarter_moon: :waning_crescent_moon:")
-st.title('Midnightlabs Curated Drop Calendar')
-st.write(":waxing_crescent_moon: :first_quarter_moon: :waxing_gibbous_moon: :waxing_gibbous_moon: :full_moon: :waning_gibbous_moon: :last_quarter_moon: :waning_crescent_moon:")
+st.markdown("<p style= 'text-align: center;'> &#127770 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127770</p>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: white;'>Midnightlabs Curated Drop Calendar</h1>", unsafe_allow_html=True)
+st.markdown("<p style= 'text-align: center;'> &#127770 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127770</p>", unsafe_allow_html=True)
+
 
 with st.expander("Description"):
     st.markdown("""
@@ -53,7 +54,7 @@ all = df["Cycle"].unique()
 
 status = st.sidebar.multiselect(
     "Status:",
-    options=["Green", "Yellow", "Orange", "Blue"],
+    options=["Green", "Yellow", "Orange"],
     default=["Green", "Yellow", "Orange"]
 )
 
