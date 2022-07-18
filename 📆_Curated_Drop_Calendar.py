@@ -16,7 +16,7 @@ st.set_page_config(
      page_title="ML Curated Drop Calendar",
      page_icon=":waxing_crescent_moon:",
      layout="wide",
-     initial_sidebar_state="collapsed",
+     initial_sidebar_state="expanded",
  )
 
 # ---- HEADER ----
@@ -24,7 +24,7 @@ st.markdown("<p style= 'text-align: center;'> &#127770 &#127761 &#127762 &#12776
 st.markdown("<h1 style='text-align: center; color: white;'>Midnightlabs Curated Drop Calendar</h1>", unsafe_allow_html=True)
 st.markdown("<p style= 'text-align: center;'> &#127770 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127770</p>", unsafe_allow_html=True)
 
-
+# ---- DISPLAYING THE TABLE DESCRIPTION ----
 with st.expander("Description"):
     st.markdown("""
         <p>
@@ -49,7 +49,7 @@ cycle = st.sidebar.multiselect(
     default=df["Cycle"].unique()[-1]
 )
 
-all_cycle = st.sidebar.checkbox("All Cycle")
+all_cycle_checkbox = st.sidebar.checkbox("All Cycle")
 all = df["Cycle"].unique()
 
 status = st.sidebar.multiselect(
@@ -70,12 +70,13 @@ clear_cache = st.sidebar.button('↻ Refresh')
 if clear_cache:
     st.experimental_memo.clear()
 
-if all_cycle:
+if all_cycle_checkbox:
     cycle_query = "Cycle in @all"
 else:
     cycle_query = "Cycle == @cycle"
 
 df = df.query(cycle_query + "& Status == @status" + mint_date_query).sort_values(by=['status_num','Cycle'])[["Project","Twitter","Description","Mint Date","Cycle"]]
+
 
 # ---- HIDING DEFAUT WATERMARK ----
 hide_menu_style = """
