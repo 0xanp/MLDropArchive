@@ -35,7 +35,6 @@ with st.expander("Description"):
         are on our watchlist and will continue to be monitored as they develop. <br> Projects highlighted in
         <strong> <span style="color: #FF4500">orange</span> </strong>
         show signs of potential but lack important information needed to make a final call. 
-        <br> Projects in <strong> <span style="color:#add8e6">light blue</span> </strong> were reviewed but were not added to the curated calendar. 
         </p>
     """,unsafe_allow_html=True)
 
