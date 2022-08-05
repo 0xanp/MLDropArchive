@@ -1,5 +1,5 @@
 mkdir -p ~/.streamlit/
-
+python ga.py
 echo "\
 [server]\n\
 headless = true\n\
