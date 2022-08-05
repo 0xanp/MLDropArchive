@@ -12,6 +12,7 @@ openpyxl = "*"
 urlextract = "*"
 importlib-resources = "*"
 streamlit-on-hover-tabs = "*"
+streamlit-analytics = "*"
 
 [dev-packages]
 
