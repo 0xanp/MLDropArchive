@@ -1,1 +1,1 @@
-web: sleep 10 && touch '/tmp/app-initialized' & bin/start-nginx streamlit run --server.enableCORS false --server.port 8501 ''$'\360\237\223\206''_Curated_Drop_Calendar.py'
+web: sh setup.sh && touch '/tmp/app-initialized' & bin/start-nginx streamlit run --server.enableCORS false --server.port 8501 ''$'\360\237\223\206''_Curated_Drop_Calendar.py'
