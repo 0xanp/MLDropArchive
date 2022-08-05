@@ -86,3 +86,20 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 # ---- DISPLAYING THE TABLE ----
 with st.container():
     st.write(df.to_html(escape=False), unsafe_allow_html=True)
+
+google_analytics_js = """
+<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-8ZWG393L96"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-8ZWG393L96");
+    </script>
+    """
+st.components.v1.html(google_analytics_js)
