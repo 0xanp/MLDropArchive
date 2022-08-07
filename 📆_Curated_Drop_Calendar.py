@@ -10,16 +10,16 @@ def load_data():
 
 # ---- PAGE CONFIG ----
 st.set_page_config(
-     page_title="ML Curated Drop Calendar",
+     page_title="Curated Drop Calendar",
      page_icon=":waxing_crescent_moon:",
      layout="wide",
      initial_sidebar_state="expanded",
  )
 
 # ---- HEADER ----
-st.markdown("<p style= 'text-align: center;'> &#127770 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127770</p>", unsafe_allow_html=True)
-st.markdown("<h1 style='text-align: center; color: white;'>Midnightlabs Curated Drop Calendar</h1>", unsafe_allow_html=True)
-st.markdown("<p style= 'text-align: center;'> &#127770 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127770</p>", unsafe_allow_html=True)
+st.markdown("<p style= 'text-align: center;'> &#127770 &#127770 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127770 &#127770</p>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: white;'>Midnight Labs Curated Drop Calendar</h1>", unsafe_allow_html=True)
+st.markdown("<p style= 'text-align: center;'> &#127770 &#127770 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127761 &#127762 &#127763 &#127764 &#127765 &#127766 &#127767 &#127768 &#127761 &#127770 &#127770</p>", unsafe_allow_html=True)
 
 # ---- DISPLAYING THE TABLE DESCRIPTION ----
 with st.expander("Description"):
@@ -40,7 +40,7 @@ df = load_data()
 
 # ---- SIDE BAR ----
 cycle = st.sidebar.multiselect(
-    "Cycle:",
+    "❍ Cycle:",
     options=df["Cycle"].unique()[::-1],
     default=df["Cycle"].unique()[-1]
 )
@@ -49,7 +49,7 @@ all_cycle_checkbox = st.sidebar.checkbox("All Cycle")
 all = df["Cycle"].unique()
 
 status = st.sidebar.multiselect(
-    "Status:",
+    "❍ Status:",
     options=["Green", "Yellow", "Orange"],
     default=["Green", "Yellow", "Orange"]
 )
