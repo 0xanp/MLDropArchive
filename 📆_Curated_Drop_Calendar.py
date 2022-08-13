@@ -9,7 +9,8 @@ import data_processor as dp
 def load_data():
     return dp.load_data()
 
-def main():
+# ---- HANDLING ALL PAGE CONFIGS ----
+def page_config():
     # ---- PAGE CONFIG ----
     st.set_page_config(
         page_title="Curated Drop Calendar",
@@ -36,7 +37,28 @@ def main():
             show signs of potential but lack important information needed to make a final call. 
             </p>
         """,unsafe_allow_html=True)
+    
+    # ---- HIDING DEFAUT WATERMARK ----
+    hide_menu_style = """
+            <style>
+            #MainMenu {visibility: hidden; }
+            footer {visibility: hidden;}
+            </style>
+            """
+    st.markdown(hide_menu_style, unsafe_allow_html=True)
 
+# ---- HANDLING CONVERSION FROM DATAFRAME TO CSV ----
+def df_to_raw_csv(df):
+    for column in df.columns:
+        df[column] = df[column].str.replace(r'<[^<>]*>', '', regex=True)
+    return df.to_csv().encode('utf-8')
+
+# ---- HANDLING CONVERSION FROM DATAFRAME TO CSV ----
+
+def main():
+    # ---- LOAD ALL PAGE CONFIG ----
+    page_config()
+ 
     # ---- LOAD ALL DATA ----
     df = load_data()
 
@@ -58,36 +80,44 @@ def main():
 
     minted = st.sidebar.checkbox("Already Minted")
 
+    # ---- FILTERING LOGIC ----
     if minted:
         mint_date_query = ""
     else:
         mint_date_query = "& `Mint Date` != 'Already Minted'"
-
-    clear_cache = st.sidebar.button('↻ Refresh')
-
-    if clear_cache:
-        st.experimental_memo.clear()
 
     if all_cycle_checkbox:
         cycle_query = "Cycle in @all"
     else:
         cycle_query = "Cycle == @cycle"
 
+    # ---- QUERYING FROM DATAFRAME ----
     df = df.query(cycle_query + "& Status == @status" + mint_date_query).sort_values(by=['status_num','Cycle'])[["Project","Twitter","Description","Mint Date","Cycle"]]
+    df_html = df.to_html(escape=False)
+    df_csv = df_to_raw_csv(df)
+    
+    # ---- DOWNLOAD BUTTON ----
+    st.sidebar.download_button(
+        label="Export Current Table as HTML",
+        data=df_html,
+        file_name='current_data.html',
+        mime='text/html',
+    )
+    st.sidebar.download_button(
+        label="Export Current Table as CSV",
+        data=df_csv,
+        file_name='current_data.csv',
+        mime='text/csv',
+    )
+    # ---- REFRESH BUTTON ----
+    clear_cache = st.sidebar.button('↻ Refresh')
 
-
-    # ---- HIDING DEFAUT WATERMARK ----
-    hide_menu_style = """
-            <style>
-            #MainMenu {visibility: hidden; }
-            footer {visibility: hidden;}
-            </style>
-            """
-    st.markdown(hide_menu_style, unsafe_allow_html=True)
+    if clear_cache:
+        st.experimental_memo.clear()
 
     # ---- DISPLAYING THE TABLE ----
     with st.container():
-        st.write(df.to_html(escape=False), unsafe_allow_html=True)
+        st.write(df_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()

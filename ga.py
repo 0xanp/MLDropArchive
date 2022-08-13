@@ -4,6 +4,7 @@ import logging
 import shutil
 import streamlit as st
 
+# Reference: https://discuss.streamlit.io/t/adding-a-meta-description-to-your-streamlit-app/17847/7
 def inject_ga():
     GA_ID = "google_analytics"
 
@@ -34,4 +35,9 @@ def inject_ga():
         html = str(soup)
         new_html = html.replace('<head>', '<head>\n' + GA_JS)
         index_path.write_text(new_html)
-inject_ga()
+
+def main():
+    inject_ga()
+
+if __name__ == "__main__":
+    main()
