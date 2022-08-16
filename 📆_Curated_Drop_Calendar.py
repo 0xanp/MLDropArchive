@@ -38,20 +38,19 @@ def page_config():
             </p>
         """,unsafe_allow_html=True)
     
-    # ---- HIDING DEFAUT WATERMARK ----
-        # ---- SOCIAL LINKS ----
+    # ---- HIDING DEFAUT WATERMARK  AND ADDING SOCIALS----
     css_example ="""
              <style>
             #MainMenu {visibility: hidden; }
             footer {visibility: hidden; }
-            a:link,
-            a:visited {
+            b:link,
+            b:visited {
             color: white;
             background-color: transparent;
             text-decoration: underline;
             }
-            a:hover,
-            a:active {
+            b:hover,
+            b:active {
             color: red;
             background-color: transparent;
             text-decoration: underline;
@@ -59,9 +58,9 @@ def page_config():
             </style>                                                                                                                                      
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
             <div style= 'text-align: center;'>
-                <a target="_blank" href="https://www.joinmidnightlabs.com/"><i class="fa-solid fa-window-maximize fa-xl"></i></a>                                                                                                                                                                                                                                                                                            
-                <a target="_blank" href="https://twitter.com/midnightlabshq"><i class="fa-brands fa-twitter fa-xl"></i></a>
-                <a target="_blank" href="https://discord.com/invite/vAxZapwM98"><i class="fa-brands fa-discord fa-xl"></i></a>
+                <b target="_blank" href="https://www.joinmidnightlabs.com/"><i class="fa-solid fa-window-maximize fa-xl"></i></b>                                                                                                                                                                                                                                                                                            
+                <b target="_blank" href="https://twitter.com/midnightlabshq"><i class="fa-brands fa-twitter fa-xl"></i></b>
+                <b target="_blank" href="https://discord.com/invite/vAxZapwM98"><i class="fa-brands fa-discord fa-xl"></i></b>
             </div>
             <br><br><br>
     """
