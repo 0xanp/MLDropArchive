@@ -43,14 +43,13 @@ def page_config():
              <style>
             #MainMenu {visibility: hidden; }
             footer {visibility: hidden; }
-            b:link,
-            b:visited {
-            color: white;
+            a:link,
+            a:visited {
             background-color: transparent;
             text-decoration: underline;
             }
-            b:hover,
-            b:active {
+            a:hover,
+            a:active {
             color: red;
             background-color: transparent;
             text-decoration: underline;
@@ -58,9 +57,9 @@ def page_config():
             </style>                                                                                                                                      
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
             <div style= 'text-align: center;'>
-                <b target="_blank" href="https://www.joinmidnightlabs.com/"><i class="fa-solid fa-window-maximize fa-xl"></i></b>                                                                                                                                                                                                                                                                                            
-                <b target="_blank" href="https://twitter.com/midnightlabshq"><i class="fa-brands fa-twitter fa-xl"></i></b>
-                <b target="_blank" href="https://discord.com/invite/vAxZapwM98"><i class="fa-brands fa-discord fa-xl"></i></b>
+                <a target="_blank" href="https://www.joinmidnightlabs.com/"><i class="fa-solid fa-window-maximize fa-xl"></i></a>                                                                                                                                                                                                                                                                                            
+                <a target="_blank" href="https://twitter.com/midnightlabshq"><i class="fa-brands fa-twitter fa-xl"></i></a>
+                <a target="_blank" href="https://discord.com/invite/vAxZapwM98"><i class="fa-brands fa-discord fa-xl"></i></a>
             </div>
             <br><br><br>
     """
