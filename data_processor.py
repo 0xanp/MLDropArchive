@@ -2,6 +2,8 @@ import pandas as pd
 from datetime import datetime
 import re
 import numpy as np
+from dotenv import load_dotenv
+import os
 
 # ---- CREATING HYPERLINK ----
 def make_clickable(link):
@@ -40,9 +42,10 @@ def fill_nan(text):
 
 # ---- READ EXCEL ----
 def load_data():
+    load_dotenv()
     # Reading from google sheets
-    sheet_id = "1HLWkNCVi3mggBYVZNdHooP8KwTw47F7ATrmfKmvK6GY"
-    gid = "1619771889"
+    sheet_id = os.environ.get("SHEET_ID")
+    gid = os.environ.get("GID")
     url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=xlsx&gid={gid}"
     df = pd.read_excel(url)
     # Querying necessary columns

@@ -13,6 +13,7 @@ urlextract = "*"
 importlib-resources = "*"
 streamlit-on-hover-tabs = "*"
 streamlit-analytics = "*"
+dotenv = "*"
 
 [dev-packages]
 
