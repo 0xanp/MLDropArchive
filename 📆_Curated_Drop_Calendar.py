@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import data_processor as dp
+import datetime
 
 # ---- LOAD DATA ----
 @st.experimental_memo
@@ -77,15 +78,15 @@ def df_to_raw_csv(df):
 def main():
     # ---- LOAD ALL PAGE CONFIG ----
     page_config()
- 
+
     # ---- LOAD ALL DATA ----
     df = load_data()
-
+    
     # ---- SIDE BAR ----
     cycle = st.sidebar.multiselect(
         "❍ Cycle:",
-        options=df["Cycle"].unique()[::-1],
-        default=df["Cycle"].unique()[-1]
+        options=sorted(df["Cycle"].unique(),reverse=True),
+        default=sorted(df["Cycle"].unique(),reverse=True)[0]
     )
 
     all_cycle_checkbox = st.sidebar.checkbox("All Cycle")
@@ -136,7 +137,7 @@ def main():
 
     # ---- DISPLAYING THE TABLE ----
     with st.container():
-        st.write(df_html, unsafe_allow_html=True)
+        st.write(df_html, unsafe_allow_html=True) 
 
 if __name__ == "__main__":
     main()

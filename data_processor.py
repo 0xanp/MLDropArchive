@@ -77,6 +77,7 @@ def load_data():
     df["Description"] = df["Description"].astype(str).apply(lambda x: x.replace("\n \n","<br> <br>"))
     df["Description"] = df["Description"].astype(str).apply(lambda x: x.replace("\n","<br>"))
     df["Description"] = df["Description"].astype(str).apply(format_description)
+    df["Cycle"] = pd.to_datetime(df["Cycle"], format="%m/%d/%Y").apply(lambda x: x.strftime("%m/%d/%Y"))
     # Setting alignment for dataframe
     pd.set_option('display.colheader_justify', 'left')
     # Filling null values
