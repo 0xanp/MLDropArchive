@@ -85,8 +85,8 @@ def main():
     # ---- SIDE BAR ----
     cycle = st.sidebar.multiselect(
         "❍ Cycle:",
-        options=sorted(df["Cycle"].unique(),reverse=True),
-        default=sorted(df["Cycle"].unique(),reverse=True)[0]
+        options=sorted(df["Cycle"].unique(), key= lambda x: datetime.datetime.strptime(x, "%m/%d/%Y"),reverse=True),
+        default=sorted(df["Cycle"].unique(), key= lambda x: datetime.datetime.strptime(x, "%m/%d/%Y"),reverse=True)[0]
     )
 
     all_cycle_checkbox = st.sidebar.checkbox("All Cycle")
