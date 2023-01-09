@@ -70,14 +70,14 @@ def load_data():
     df.rename(columns = {'Picture Test':'Picture'}, inplace = True)
     # Formatting images' links
     df["Picture"] = df["Picture"].astype(str).apply(format_images)
-    df["Mint Date"] = df['Mint Date'].apply(lambda x: pd.to_datetime(x).strftime('%m/%d/%Y') if type(x) is datetime else x)
+    df["Mint Date"] = df['Mint Date'].apply(lambda x: pd.to_datetime(x).strftime("%m/%d/%Y") if type(x) is datetime else x)
     # Formatting Description Column
     df["Description"] = df["Description"].astype(str).apply(fill_nan)
     df["Description"] = df["Description"].astype(str).apply(lambda x: x.replace("\n\n","<br> <br>"))
     df["Description"] = df["Description"].astype(str).apply(lambda x: x.replace("\n \n","<br> <br>"))
     df["Description"] = df["Description"].astype(str).apply(lambda x: x.replace("\n","<br>"))
     df["Description"] = df["Description"].astype(str).apply(format_description)
-    df["Cycle"] = pd.to_datetime(df["Cycle"], format="%m/%d/%Y").apply(lambda x: x.strftime("%m/%d/%Y"))
+    df["Cycle"] = pd.to_datetime(df["Cycle"], format="%m/%d/%Y")
     # Setting alignment for dataframe
     pd.set_option('display.colheader_justify', 'left')
     # Filling null values

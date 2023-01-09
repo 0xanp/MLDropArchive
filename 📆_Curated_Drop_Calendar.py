@@ -85,8 +85,8 @@ def main():
     # ---- SIDE BAR ----
     cycle = st.sidebar.multiselect(
         "❍ Cycle:",
-        options=sorted(df["Cycle"].unique(), key= lambda x: datetime.datetime.strptime(x, "%m/%d/%Y"),reverse=True),
-        default=sorted(df["Cycle"].unique(), key= lambda x: datetime.datetime.strptime(x, "%m/%d/%Y"),reverse=True)[0]
+        options=[pd.to_datetime(x, "%m/%d/%Y").strftime("%m/%d/%Y") for x in sorted(df["Cycle"].unique(),reverse=True)],
+        default=[pd.to_datetime(x, "%m/%d/%Y").strftime("%m/%d/%Y") for x in sorted(df["Cycle"].unique(),reverse=True)][0]
     )
 
     all_cycle_checkbox = st.sidebar.checkbox("All Cycle")
@@ -110,9 +110,11 @@ def main():
         cycle_query = "Cycle in @all"
     else:
         cycle_query = "Cycle == @cycle"
-
+    
+    
     # ---- QUERYING FROM DATAFRAME ----
     df = df.query(cycle_query + "& Status == @status" + mint_date_query).sort_values(by=['status_num','Cycle'])[["Project","Twitter","Description","Mint Date","Cycle"]]
+    df["Cycle"] = df["Cycle"].apply(lambda x: x.strftime("%m/%d/%Y"))
     df_html = df.to_html(escape=False)
     df_csv = df_to_raw_csv(df)
     
